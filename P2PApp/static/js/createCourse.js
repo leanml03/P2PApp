@@ -9,7 +9,7 @@ registerform.addEventListener("submit", function(event) {
     // crear el objeto JSON utilizando los valores de los campos de entrada
     var data = {
         "name": name,
-        "token": token
+        "token": token,
     };
 
     // imprimir el objeto JSON en la consola para verificar que se ha creado correctamente
@@ -19,6 +19,7 @@ registerform.addEventListener("submit", function(event) {
     //var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
     //var csrftoken = getCookie('csrftoken');
 
+    console.log(data);
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

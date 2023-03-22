@@ -10,16 +10,15 @@ registerform.addEventListener("submit", function(event) {
     var data = {
         "carne": carne,
         "name": name,
-        "cursos":[]
+        "uid":uuidv4()
     };
-
-    // imprimir el objeto JSON en la consola para verificar que se ha creado correctamente
-    ///console.log(data);
-
-    // agregar el token CSRF al encabezado de la solicitud POST
-    //var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-    //var csrftoken = getCookie('csrftoken');
-
+    
+    function uuidv4() { //Funcion que genera valor aleatorio para asignarlo como uid
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+          (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+    console.log(data);
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

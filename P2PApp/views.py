@@ -1,10 +1,13 @@
 import os
+import uuid
+import json
 from django.http import HttpResponse
 from django.template import Template, Context
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from P2PApp.models import *
 #from django.views.decorators.csrf import csrf_exempt
 #Aqui se van a crear las vistas //Retornan una respuesta http.
 
@@ -48,7 +51,7 @@ def welcome(request):
 	return render(request,'welcome.html')
 
 
-import json
+
 def guardar_json(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -71,7 +74,7 @@ def guardar_json(request):
 		return HttpResponse(status=400)
 def create_course(request): #Ventana en donde se va a crear el curso
 	return render(request,'crear_curso.html')
-import uuid
+
 def reg_course(request): #Ventana en donde se va a crear el curso
 	if request.method=='POST':
 		data=json.loads(request.body.decode('utf-8'))
@@ -82,6 +85,18 @@ def reg_course(request): #Ventana en donde se va a crear el curso
 		return HttpResponseRedirect('/home/')
 	else:
 		return HttpResponse(status=400)
-
+def sync_data(request):
+	"""folder_path = "data/courses/"
+	file_list = os.listdir(folder_path)
+	json_list = []
+	for file_name in file_list:
+		if file_name.endswith('.json'):
+			file_path = os.path.join(folder_path, file_name)
+			with open(file_path, 'r') as json_file:
+				json_data = json.load(json_file)
+				json_list.append(json_data)"""
+	datos = load_courses()
+	print(datos)
+	return render(request, 'home.html', {'datos': datos})
 
 	

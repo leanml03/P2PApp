@@ -24,5 +24,7 @@ urlpatterns = [
     path('home/',home, name='home'),
     path('welcome/',welcome),
     path('create_course/',create_course,name='create_course'),
-    path('create_course/reg_course/',reg_course,name='reg_course')
+    path('create_course/reg_course/',reg_course,name='reg_course'),
+    path('home/sync_data/',sync_data,name='sync_data')
+
 ]
