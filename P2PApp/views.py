@@ -93,11 +93,13 @@ def reg_course(request): #Ventana en donde se va a crear el curso
 		if(check_courses(nombre_archivo)):
 			print("Log: No se puede registrar el curso, ya se encuentra registrado.")
 			return redirect('invalid')
+			
 		else:
+			with open(ruta_archivo,'w') as f:
+				json.dump(data,f)
 			print("Log: El curso se ha registrado satisfactoriamente.")
 			return HttpResponseRedirect('/home/')
-		with open(ruta_archivo,'w') as f:
-			json.dump(data,f)
+
 		
 	else:
 		return HttpResponse(status=400)
