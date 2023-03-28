@@ -8,6 +8,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from P2PApp.models import *
+from django.template import TemplateDoesNotExist
+import hashlib
 #from django.views.decorators.csrf import csrf_exempt
 #Aqui se van a crear las vistas //Retornan una respuesta http.
 
@@ -75,16 +77,27 @@ def guardar_json(request):
 def create_course(request): #Ventana en donde se va a crear el curso
 	return render(request,'crear_curso.html')
 
+
+#Se crea un curso con Hash ID
 def reg_course(request): #Ventana en donde se va a crear el curso
 	if request.method=='POST':
 		data=json.loads(request.body.decode('utf-8'))
-		nombre_archivo= str(uuid.uuid4())+'.json'
+		datax=json.dumps(data,sort_keys=True)
+		hash_object=hashlib.sha256(datax.encode())
+		nombre_archivo= hash_object.hexdigest()+'.json'
 		ruta_archivo = os.path.join('data/courses/', nombre_archivo)
+		if(check_courses(nombre_archivo)):
+			print("Log: No se puede registrar el curso, ya se encuentra registrado.")
+			return redirect('invalid')
+		else:
+			print("Log: El curso se ha registrado satisfactoriamente.")
+			return HttpResponseRedirect('/home/')
 		with open(ruta_archivo,'w') as f:
 			json.dump(data,f)
-		return HttpResponseRedirect('/home/')
+		
 	else:
 		return HttpResponse(status=400)
+	
 def sync_data(request):
 	"""folder_path = "data/courses/"
 	file_list = os.listdir(folder_path)
@@ -98,5 +111,15 @@ def sync_data(request):
 	datos = load_courses()
 	print(datos)
 	return render(request, 'home.html', {'datos': datos})
+def login(request):
+	datos=load_profile()
+	return render(request,'login.html',{'datos':datos})
 
-	
+def InvalidData(request):
+	if(request.method=='GET'):
+		print("hola")
+		return redirect('home')
+
+		
+	else:
+		return render("<div>hola</div>")
