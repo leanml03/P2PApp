@@ -10,7 +10,8 @@ registerform.addEventListener("submit", function(event) {
     var data = {
         "name": name,
         "token": token,
-        "members":[]
+        "members":[],
+        "forums":[]
     };
 
     // imprimir el objeto JSON en la consola para verificar que se ha creado correctamente

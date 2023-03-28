@@ -10,6 +10,12 @@ from django.http import HttpResponseRedirect
 from P2PApp.models import *
 from django.template import TemplateDoesNotExist
 import hashlib
+
+
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
 #from django.views.decorators.csrf import csrf_exempt
 #Aqui se van a crear las vistas //Retornan una respuesta http.
 
@@ -20,19 +26,11 @@ import hashlib
 #Esto es una vista
 def welcome(request):
 	return HttpResponse("<p style='color: red;'>Bienvenido<p>")
-def categoriaEdad(request,edad):
-	if edad>=18:
-		if edad>=60:
-			categoria="Tercera Edad"
-		else:
-			categoria="Adultez"
-	else:
-		categoria="Infante/Adolescente"
-	resultado="<h1>Categoria de la Edad: %s</h1>" %categoria
-	return HttpResponse(resultado)
+
 
 def home(request):
-	return render(request,'home.html')
+	user=load_profile
+	return render(request,'home.html',{'user':user})
 
 def register(request):
 	"""openTemplate=open(os.path.abspath("P2PApp/templates/register.html")) #Se llama a la ruta importando OS para poder correrlo en cualquier computador
@@ -53,7 +51,7 @@ def welcome(request):
 	return render(request,'welcome.html')
 
 
-
+""""
 def guardar_json(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -64,7 +62,7 @@ def guardar_json(request):
 		#return redirect('home.html')
 		
     else:
-        return HttpResponse(status=400)
+        return HttpResponse(status=400)"""
     
 def guardar_json(request):
 	if request.method=='POST':
@@ -109,8 +107,9 @@ def sync_data(request):
 				json_data = json.load(json_file)
 				json_list.append(json_data)"""
 	datos = load_courses()
+	user=load_profile()
 	print(datos)
-	return render(request, 'home.html', {'datos': datos})
+	return render(request, 'home.html', {'datos': datos,'user':user})
 def login(request):
 	datos=load_profile()
 	return render(request,'login.html',{'datos':datos})
@@ -118,8 +117,9 @@ def login(request):
 def InvalidData(request):
 	if(request.method=='GET'):
 		print("hola")
-		return redirect('home')
+		return redirect('/home/')
 
 		
 	else:
 		return render("<div>hola</div>")
+
