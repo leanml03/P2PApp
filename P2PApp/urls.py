@@ -29,6 +29,9 @@ urlpatterns = [
     path('create_course/',create_course,name='create_course'),
     path('create_course/reg_course/',reg_course,name='reg_course'),
     path('home/sync_data/',sync_data,name='sync_data'),
-    path('login',login,name='login'),
-    path('invalid/',InvalidData,name='invalid')
+    path('login/',login,name='login'),
+    path('invalid/',InvalidData,name='invalid'),
+    path('login/loaded/',loginloaded,name='loginloaded'),
+    path('exportUser/',exportUser,name='exportUser'),
+    path('exportCourse/',exportCourse,name='exportCourse')
 ]

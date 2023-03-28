@@ -11,11 +11,17 @@ from P2PApp.models import *
 from django.template import TemplateDoesNotExist
 import hashlib
 
+import shutil
+from django.conf import settings
 
 
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.http import JsonResponse
+
+import shutil
+from django.conf import settings
 #from django.views.decorators.csrf import csrf_exempt
 #Aqui se van a crear las vistas //Retornan una respuesta http.
 
@@ -122,4 +128,36 @@ def InvalidData(request):
 		
 	else:
 		return render("<div>hola</div>")
+	
+
+
+
+
+def loginloaded(request):
+    if request.method == 'POST':
+        file = request.FILES.get('json_file', None)
+        if file:
+            # Verificar que el archivo tenga la extensión .json
+            if file.name.endswith('.json'):
+                # Crear la ruta de destino
+                file_path = os.path.join(settings.BASE_DIR, 'data', 'user.json')
+                # Copiar el archivo a la ubicación de destino
+                with open(file_path, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Solo se permiten archivos JSON'})
+        else:
+            return JsonResponse({'success': False, 'error': 'No se proporcionó ningún archivo'})
+    else:
+        return render(request, 'login.html')
+    
+
+def exportUser(request):
+	copy_export_file(os.path.join('data/user.json'),os.path.join('export/users/user.json'))
+	return render(request,'checkdata.html')
+
+def exportCourse(request):
+	return render(request,'checkdata.html')
 

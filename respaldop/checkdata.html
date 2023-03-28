@@ -40,7 +40,15 @@
 	<p>Para continuar dale click al siguiente boton.</p>
 	<a href="/home/">Volver al inicio</a>
 	
- 
+    {% if status %}
+        <h1>Los datos han sido registrados satisfactoriamente</h1>
+        <p>Para continuar dale click al siguiente boton.</p>
+        <a href="/home/">Volver al inicio</a>
+    {% else %}
+        <h1>El dato ya ha sido registrado anteriormente</h1>
+        <p>Los datos que intenta ingresar ya han sido introducidos anteriormente. Por favor, intentelo nuevamente.</p>
+        <a href="/home/">Volver al inicio</a>
+    {% endif%}
 
 	
 </body>

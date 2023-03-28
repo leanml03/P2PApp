@@ -12,23 +12,57 @@
 </head>
 <body>
     <nav>
-        <a class="btn">Importar Usuario</a>
-        <input type="file" class="Boton"></input>
-        
+        <div>
+            <form id="json-form" method="POST" enctype="multipart/form-data" action="/login/loaded/">
+                {% csrf_token %}
+                <input type="file" name="json_file" id="json-file-input" accept=".json">
+            </form>
+            
+              
+              <script>
+              // JavaScript
+              const form = document.getElementById('json-form');
+              const fileInput = document.getElementById('json-file-input');
+              
+              fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (!file || !file.name.endsWith('.json')) {
+                  alert('Solo se permiten archivos JSON');
+                  return;
+                }
+                const formData = new FormData();
+                formData.append('json_file', file);
+                fetch(form.action, {
+                  method: form.method,
+                  body: formData,
+                  headers: {
+                    'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value,
+                  },
+                })
+                .then(response => {
+                  if (response.ok) {
+                    alert('Archivo cargado exitosamente');
+                    // Redireccionar a otra página
+                    window.location.href = '/login/loaded/';
+                  } else {
+                    alert('Ocurrió un error al cargar el archivo');
+                  }
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+              });
+              
+              </script>
+        </div>  
 
     </nav>
     <main>
-        <div>
-            Bienvenido a AppName
-            <img>
-            Identifier
-            <span>{{ datos.name }}</span>
-            <span>{{ datos.carne }}</span>
-        </div>    
+  
         {% if datos %}
         <a href="/home" class="btn">Ingresar</a>
         {% else %}
-            <button class="btn" disabled>Ingresar</button>
+            <a class="btn" disabled>Ingresar</a>
         {% endif %}
     </main>
 </body>

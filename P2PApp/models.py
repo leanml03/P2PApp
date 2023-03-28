@@ -1,6 +1,6 @@
 import os
 import json
-
+import shutil
 from P2PApp.settings import BASE_DIR
 
 #Carga de los datos json
@@ -28,7 +28,10 @@ def load_courses():
 current_user=None
 def load_profile():
     data=os.path.join(BASE_DIR,'data/user.json')
-    f=open(data,"r")
+    try:
+       f=open(data,"r")
+    except:
+        return
     datos= json.loads(f.read())
     print("Log: Usuario ha sido cargado")
     current_user=datos
@@ -44,4 +47,9 @@ def check_courses(name):
             if archivo[:-5]+".json" == name:
                     return True
     return False
+
+def copy_export_file(path,path2):
+    src = path #'/path/to/original/file.json'
+    dst = path2 #'/path/to/new/location/file.json'
+    shutil.copy(src, dst)
 
