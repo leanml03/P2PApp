@@ -128,4 +128,4 @@ STATICFILES_DIRS=[
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+globals()['UID_ACTUAL'] = '9c95ecd41b97ae931cd2b979214ce6d38c43a84783f7490cdffc47edaf392b36'

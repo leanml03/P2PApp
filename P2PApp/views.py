@@ -38,6 +38,10 @@ def home(request):
 	user=load_profile
 	return render(request,'home.html',{'user':user})
 
+def course(request):
+	user=load_profile
+	return render(request,'course.html',{'user':user})
+
 def register(request):
 	"""openTemplate=open(os.path.abspath("P2PApp/templates/register.html")) #Se llama a la ruta importando OS para poder correrlo en cualquier computador
 	template=Template(openTemplate.read()) #Se lee el HTML y se guarda en template (Se usa Template de libreria de django)
@@ -104,6 +108,29 @@ def reg_course(request): #Ventana en donde se va a crear el curso
 	else:
 		return HttpResponse(status=400)
 	
+def create_forum(request): #Ventana en donde se va a crear el foro
+	return render(request,'crear_foro.html')
+
+def reg_forum(request): #Ventana en donde se va a crear el foro
+	if request.method=='POST':
+		data=json.loads(request.body.decode('utf-8'))
+
+		nombre_archivo= settings.UID_ACTUAL + '.json'
+		ruta_archivo = os.path.join('data/courses/', nombre_archivo)
+
+		
+		with codecs.open(ruta_archivo, 'r',encoding='utf-8') as f:
+			json_existente = json.load(f)
+	
+		json_existente['forums'].append(data)
+
+		with open(ruta_archivo,'w') as f:
+			json.dump(json_existente,f)
+
+		return HttpResponseRedirect('/home/')
+	else:
+		return HttpResponse(status=400)
+		
 def sync_data(request):
 	"""folder_path = "data/courses/"
 	file_list = os.listdir(folder_path)
