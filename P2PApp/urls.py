@@ -36,5 +36,7 @@ urlpatterns = [
     path('exportCourse/',exportCourse,name='exportCourse'),
     path('create_forum/reg_forum/',reg_forum,name='reg_forum'),
     path('course/',course,name='course'),
-    path('course/create_forum/',create_forum,name='create_forum') 
+    path('course/create_forum/',create_forum,name='create_forum'),
+    path('register/', register, name='register'), 
+    path('welcome/', welcome, name='welcome')
 ]

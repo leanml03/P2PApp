@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from P2PApp.models import *
 from django.template import TemplateDoesNotExist
 import hashlib
-
+import codecs 
 import shutil
 from django.conf import settings
 
