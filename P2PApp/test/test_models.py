@@ -3,7 +3,7 @@ import json
 import shutil
 from django.test import TestCase
 from django.conf import settings
-from P2PApp.models import cargar_datos_json, load_courses, load_profile, check_courses, copy_export_file
+from P2PApp.models import cargar_datos_json, cargar_cursos, cargar_perfil, revisar_cursos, copiar_archivo_exportado
 
 class TestUtils(TestCase):
     def setUp(self):
@@ -27,7 +27,7 @@ class TestUtils(TestCase):
         with open(self.course_file, 'w') as f:
             f.write(json.dumps(course_data))
 
-        courses = load_courses()
+        courses = cargar_cursos()
         self.assertEqual(len(courses), 1)
         self.assertIn('test', courses)
         self.assertEqual(courses['test'], course_data)
@@ -38,7 +38,7 @@ class TestUtils(TestCase):
         with open(user_file, 'w') as f:
             f.write(json.dumps(user_data))
 
-        profile = load_profile()
+        profile = cargar_perfil()
         self.assertIsNotNone(profile)
         self.assertEqual(profile, user_data)
 
@@ -47,10 +47,10 @@ class TestUtils(TestCase):
         with open(self.course_file, 'w') as f:
             f.write(json.dumps(course_data))
 
-        self.assertTrue(check_courses('test'))
+        self.assertTrue(revisar_cursos('test'))
 
 
-        copy_export_file(src_file, dst_file)
+        copiar_archivo_exportado(src_file, dst_file)
         self.assertTrue(os.path.exists(dst_file))
 
         with open(dst_file, 'r') as f:

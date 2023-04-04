@@ -18,11 +18,11 @@ class TestUrls(SimpleTestCase):
 
     def test_reg_course_url_resolves(self):
         url = reverse('reg_course')
-        self.assertEquals(resolve(url).func, reg_course)
+        self.assertEquals(resolve(url).func, reg_curso)
 
     def test_sync_data_url_resolves(self):
         url = reverse('sync_data')
-        self.assertEquals(resolve(url).func, sync_data)
+        self.assertEquals(resolve(url).func, sincronizar_datos)
 
     def test_login_url_resolves(self):
         url = reverse('login')
@@ -38,20 +38,20 @@ class TestUrls(SimpleTestCase):
 
     def test_exportUser_url_resolves(self):
         url = reverse('exportUser')
-        self.assertEquals(resolve(url).func, exportUser)
+        self.assertEquals(resolve(url).func, exportar_usuario)
 
     def test_exportCourse_url_resolves(self):
         url = reverse('exportCourse')
-        self.assertEquals(resolve(url).func, exportCourse)
+        self.assertEquals(resolve(url).func, exportar_curso)
 
     def test_reg_forum_url_resolves(self):
         url = reverse('reg_forum')
-        self.assertEquals(resolve(url).func, reg_forum)
+        self.assertEquals(resolve(url).func, reg_foro)
 
     def test_course_url_resolves(self):
         url = reverse('course')
-        self.assertEquals(resolve(url).func, course)
+        self.assertEquals(resolve(url).func, curso)
 
     def test_create_forum_url_resolves(self):
         url = reverse('create_forum')
-        self.assertEquals(resolve(url).func, create_forum)
+        self.assertEquals(resolve(url).func, crear_foro)

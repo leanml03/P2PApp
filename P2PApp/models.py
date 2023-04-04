@@ -15,9 +15,9 @@ def cargar_datos_json():
 
 
 #Carga de los cursos
-def load_courses():
+def cargar_cursos():
     datos = {}
-    ruta_datos = os.path.join(BASE_DIR, 'data/courses')
+    ruta_datos = os.path.join(BASE_DIR, 'data/cursos')
     for archivo in os.listdir(ruta_datos):
         if archivo.endswith('.json'):
             with open(os.path.join(ruta_datos, archivo)) as f:
@@ -26,8 +26,8 @@ def load_courses():
 
 #Carga del usuario
 current_user=None
-def load_profile():
-    data=os.path.join(BASE_DIR,'data/user.json')
+def cargar_perfil():
+    data=os.path.join(BASE_DIR,'data/usuario.json')
     try:
        f=open(data,"r")
     except:
@@ -37,9 +37,9 @@ def load_profile():
     current_user=datos
     return datos                
 
-def check_courses(name):
+def revisar_cursos(name):
     print("entro")
-    ruta_datos = os.path.join(BASE_DIR, 'data/courses')
+    ruta_datos = os.path.join(BASE_DIR, 'data/cursos')
     for archivo in os.listdir(ruta_datos):
         print(archivo[:-5])
         print(name)
@@ -48,7 +48,7 @@ def check_courses(name):
                     return True
     return False
 
-def copy_export_file(path,path2):
+def copiar_archivo_exportado(path,path2):
     src = path #'/path/to/original/file.json'
     dst = path2 #'/path/to/new/location/file.json'
     shutil.copy(src, dst)
